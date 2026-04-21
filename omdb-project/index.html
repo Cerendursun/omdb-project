@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+    <nav class="top-nav">
+      <div class="brand">MOVIE EXPLORER</div>
+      <div class="nav-links">
+        <button class="nav-pill active" type="button">Home</button>
+        <button class="nav-pill" type="button">Movies</button>
+        <button class="nav-pill" type="button">Trending</button>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">Movie Discovery Platform</p>
+      <h1>🎬 Movie Explorer</h1>
+      <p class="subtitle">Search movies, view details, and return to recent searches in one click.</p>
+      <div class="featured-box">
+        <p class="featured-label">Featured Today</p>
+        <h2 id="featuredTitle">Loading...</h2>
+        <p id="featuredMeta" class="featured-meta"></p>
+        <p id="featuredPlot" class="featured-plot">Fetching featured movie details.</p>
+        <div class="featured-actions">
+          <button id="playFeaturedBtn" type="button">▶ Play</button>
+          <button id="infoFeaturedBtn" class="ghost-btn" type="button">ℹ More Info</button>
+        </div>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" list="recentSearchList" placeholder="Type a movie name (e.g. Inception)" />
+        <datalist id="recentSearchList"></datalist>
+        <button id="searchBtn">Search</button>
+      </div>
+      <div class="search-history-bar">
+        <div id="searchHistoryInline" class="search-history-inline"></div>
+        <button id="clearHistoryBtn" class="ghost-btn clear-history-btn" type="button">Clear History</button>
+      </div>
+      <div class="filters-row">
+        <select id="genreFilter">
+          <option value="">All Genres</option>
+          <option value="Action">Action</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Animation">Animation</option>
+          <option value="Biography">Biography</option>
+          <option value="Drama">Drama</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Crime">Crime</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Horror">Horror</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Romance">Romance</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Thriller">Thriller</option>
+        </select>
+
+        <select id="typeFilter">
+          <option value="">All Types</option>
+          <option value="movie">Movie</option>
+          <option value="series">Series</option>
+          <option value="episode">Episode</option>
+        </select>
+
+        <select id="yearFilter">
+          <option value="">All Years</option>
+        </select>
+
+        <select id="ratingFilter">
+          <option value="">Any IMDb</option>
+          <option value="6">IMDb 6.0+</option>
+          <option value="7">IMDb 7.0+</option>
+          <option value="8">IMDb 8.0+</option>
+          <option value="9">IMDb 9.0+</option>
+        </select>
+        <button id="clearFiltersBtn" class="ghost-btn" type="button">Clear Filters</button>
+      </div>
+      <p id="statusText" class="status-text">Type a movie name and start searching.</p>
+    </header>
+
+    <section class="panel">
+      <h2>Search Results</h2>
+      <div id="movieContainer" class="strip"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Recent Searches</h2>
+      <div id="recentContainer" class="strip"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Trending Movies</h2>
+      <div id="trendingContainer" class="strip"></div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

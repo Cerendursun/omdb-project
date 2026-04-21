@@ -107,17 +107,25 @@ searchInput.addEventListener("input", () => {
 // SEARCH MOVIES
 async function searchMovies(name) {
   const query = name.trim();
-  if (!query) {
+  const selectedGenre = genreFilter.value;
+  const selectedType = typeFilter.value;
+  const selectedYear = yearFilter.value;
+  const minRating = ratingFilter.value ? Number(ratingFilter.value) : 0;
+  const hasActiveFilters = Boolean(selectedGenre || selectedType || selectedYear || minRating);
+
+  if (!query && !hasActiveFilters) {
     statusText.textContent = "Please enter a movie name.";
     return;
   }
 
-  statusText.textContent = `Searching for "${query}"...`;
+  const effectiveQuery = query || buildFilterQuery();
+
+  statusText.textContent = `Searching for "${effectiveQuery}"...`;
   renderSkeletonStrip(movieContainer, 8);
 
   try {
     const res = await fetch(
-      `https://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(query)}`
+      `https://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(effectiveQuery)}`
     );
 
     const data = await res.json();
@@ -134,11 +142,22 @@ async function searchMovies(name) {
     renderMovies();
 
     statusText.textContent = `${moviesData.length} results listed.`;
-    saveRecent(query);
+    if (query) {
+      saveRecent(query);
+    }
   } catch (error) {
     movieContainer.innerHTML = `<p class="empty-state">Something went wrong. Please try again.</p>`;
     statusText.textContent = "Search could not be completed due to a connection issue.";
   }
+}
+
+function buildFilterQuery() {
+  if (genreFilter.value) return genreFilter.value;
+  if (yearFilter.value) return yearFilter.value;
+  if (typeFilter.value === "series") return "series";
+  if (typeFilter.value === "episode") return "episode";
+  if (typeFilter.value === "movie") return "movie";
+  return "popular";
 }
 
 // RENDER RESULTS
